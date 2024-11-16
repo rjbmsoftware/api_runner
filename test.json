@@ -1,0 +1,10 @@
+{
+    "url": "http://example.com",
+    "restMethod": "GET",
+    "tests": [
+        {
+            "pathParameters": {},
+            "expectedResponseCode": 200
+        }
+    ]
+}
