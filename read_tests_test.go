@@ -18,7 +18,7 @@ func TestReadFileNotFound(t *testing.T) {
 	}
 }
 
-func TestReadFileValid(t *testing.T) {
+func TestReadFileTypes(t *testing.T) {
 	path := "./test.json"
 	testRunDefinition, err := readTestRunDefinition(path)
 
@@ -27,7 +27,7 @@ func TestReadFileValid(t *testing.T) {
 	}
 
 	if testRunDefinition == nil {
-		t.Errorf("test run definition is nill")
+		t.Errorf("test run definition is nill after reading from valid path: %s", path)
 	}
 
 	var my_thing *TestRunDefinition
@@ -36,5 +36,25 @@ func TestReadFileValid(t *testing.T) {
 
 	if actualType != expectedType {
 		t.Errorf("Types do not match expected: %s, received: %s", expectedType, actualType)
+	}
+}
+
+func TestReadValid(t *testing.T) {
+	path := "./test.json"
+	testRunDefinition, err := readTestRunDefinition(path)
+
+	if err != nil {
+		t.Errorf("should not error: %s", err)
+	}
+
+	if testRunDefinition == nil {
+		t.Errorf("Run definition is nil")
+	}
+
+	expectedURL := "http://example.com"
+	actualURL := testRunDefinition.Url
+
+	if actualURL != expectedURL {
+		t.Errorf("test data URI mismatch expected: %s, actual: %s", expectedURL, actualURL)
 	}
 }
