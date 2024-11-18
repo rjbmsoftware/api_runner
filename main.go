@@ -1,7 +1,15 @@
 package main
 
-import "fmt"
+import (
+	"log"
+)
 
 func main() {
-	fmt.Println("API runner")
+	testDefinition, err := readTestRunDefinition("./test.json")
+	if err != nil {
+		log.Println(err)
+		return
+	}
+
+	run_test_definition(testDefinition)
 }
