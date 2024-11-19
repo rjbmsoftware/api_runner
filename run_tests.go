@@ -28,5 +28,6 @@ func run_test(test *Test, url string, rest_method RestMethod) {
 		log.Printf("more things are broken")
 	}
 
+	log.Println(url)
 	log.Printf("actual response code: %d, expected: %d", resp.StatusCode, test.ExpectedResponseCode)
 }
