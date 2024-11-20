@@ -9,6 +9,6 @@ func TestRunTest(t *testing.T) {
 		PathParameters:       pathParameters,
 		ExpectedResponseCode: 200,
 	}
-
-	run_test(&test, url, RestMethod("GET"))
+	headers := make(map[string]string)
+	run_test(&test, url, RestMethod("GET"), headers)
 }

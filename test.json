@@ -1,9 +1,22 @@
 {
-    "url": "http://example.com",
+    "url": "http://example.com/{test}",
     "restMethod": "GET",
+    "requestHeaders": {
+        "headerName": "headerValue"
+    },
     "tests": [
         {
-            "pathParameters": {},
+            "name": "test 1",
+            "pathParameters": {
+                "{test}": "first"
+            },
+            "expectedResponseCode": 200
+        },
+        {
+            "name": "test 2",
+            "pathParameters": {
+                "{test}": ""
+            },
             "expectedResponseCode": 200
         }
     ]
