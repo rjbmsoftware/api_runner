@@ -1,51 +1,60 @@
 package main
 
 import (
-	"log"
+	"io"
 	"net/http"
 	"strings"
 )
 
-func run_test_definition(test_run_definition *TestRunDefinition) {
-	url := test_run_definition.Url
-	rest_method := test_run_definition.RestMethod
-	tests := test_run_definition.Tests
-	headers := test_run_definition.RequestHeaders
+func run_test_definition(trd *TestRunDefinition) {
+	details := TestRunDefinitionDetails{
+		trd.Url,
+		trd.RestMethod,
+		trd.RequestHeaders,
+	}
 
-	for _, test := range tests {
-		run_test(&test, url, rest_method, headers)
+	for _, test := range trd.Tests {
+		run_test(&test, details)
 	}
 }
 
-func run_test(test *Test, url string, rest_method RestMethod, headers map[string]string) {
+func run_test(test *Test, details TestRunDefinitionDetails) (*TestResult, error) {
 	client := &http.Client{}
+	url := details.Url
 
 	for key, value := range test.PathParameters {
 		url = strings.Replace(url, key, value, -1)
 	}
-	req, err := http.NewRequest(string(rest_method), url, nil)
+
+	req, err := http.NewRequest(string(details.RestMethod), url, nil)
 	if err != nil {
-		log.Println(err)
-		return
+		return nil, err
 	}
 
-	for header, value := range headers {
+	for header, value := range details.RequestHeaders {
 		req.Header.Add(header, value)
 	}
 
 	resp, err := client.Do(req)
 	if err != nil {
-		log.Println(err)
-		return
+		return nil, err
 	}
 
-	log.Println(test.Name)
-	log.Println(url)
-	log.Printf("actual response code: %d, expected: %d", resp.StatusCode, test.ExpectedResponseCode)
-	log.Println(resp.Body)
-	log.Println("Response headers")
-	for header, value := range resp.Header {
-		log.Println(header, value)
+	responseBodyBytes, err := io.ReadAll(resp.Request.Body)
+	if err != nil {
+		return nil, err
 	}
-	log.Print("\n\n\n")
+
+	result := &TestResult{
+		url,
+		details.RestMethod,
+		details.RequestHeaders,
+		"",
+		test.ExpectedResponseCode,
+		resp.StatusCode,
+		resp.Header,
+		string(responseBodyBytes),
+	}
+
+	return result, nil
 }

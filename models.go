@@ -13,6 +13,7 @@ type Test struct {
 	PathParameters       map[string]string `json:"pathParameters"`
 	ExpectedResponseCode int               `json:"expectedResponseCode"`
 	Name                 string            `json:"name"`
+	RequestBody          string
 }
 
 type TestRunDefinition struct {
@@ -20,4 +21,21 @@ type TestRunDefinition struct {
 	RestMethod     RestMethod        `json:"restMethod"`
 	Tests          []Test            `json:"tests"`
 	RequestHeaders map[string]string `json:"requestHeaders"`
+}
+
+type TestRunDefinitionDetails struct {
+	Url            string
+	RestMethod     RestMethod
+	RequestHeaders map[string]string
+}
+
+type TestResult struct {
+	Url                  string
+	RestMethod           RestMethod
+	RequestHeaders       map[string]string
+	RequestBody          string
+	ResponseCodeExpected int
+	ResponseCodeActual   int
+	ResponseHeaders      map[string][]string
+	ResponseBody         string
 }

@@ -10,5 +10,10 @@ func TestRunTest(t *testing.T) {
 		ExpectedResponseCode: 200,
 	}
 	headers := make(map[string]string)
-	run_test(&test, url, RestMethod("GET"), headers)
+	details := TestRunDefinitionDetails{
+		url,
+		RestMethod("GET"),
+		headers,
+	}
+	run_test(&test, details)
 }

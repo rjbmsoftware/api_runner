@@ -51,7 +51,7 @@ func TestReadValid(t *testing.T) {
 		t.Errorf("Run definition is nil")
 	}
 
-	expectedURL := "http://example.com"
+	expectedURL := "http://example.com/{test}"
 	actualURL := testRunDefinition.Url
 
 	if actualURL != expectedURL {
