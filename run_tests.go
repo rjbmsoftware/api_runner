@@ -6,16 +6,29 @@ import (
 	"strings"
 )
 
-func run_test_definition(trd *TestRunDefinition) {
+func run_test_definition(trd *TestRunDefinition) ([]TestResult, []error) {
 	details := TestRunDefinitionDetails{
 		trd.Url,
 		trd.RestMethod,
 		trd.RequestHeaders,
 	}
 
+	results := []TestResult{}
+	errors := []error{}
+
 	for _, test := range trd.Tests {
-		run_test(&test, details)
+		result, test_error := run_test(&test, details)
+
+		if result != nil {
+			results = append(results, *result)
+		}
+
+		if test_error != nil {
+			errors = append(errors, test_error)
+		}
 	}
+
+	return results, errors
 }
 
 func run_test(test *Test, details TestRunDefinitionDetails) (*TestResult, error) {
@@ -40,7 +53,7 @@ func run_test(test *Test, details TestRunDefinitionDetails) (*TestResult, error)
 		return nil, err
 	}
 
-	responseBodyBytes, err := io.ReadAll(resp.Request.Body)
+	responseBodyBytes, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
 	}
