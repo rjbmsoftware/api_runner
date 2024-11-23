@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-func run_test_definition(trd *TestRunDefinition) ([]TestResult, []error) {
+func RunTestDefinition(trd *TestRunDefinition) ([]TestResult, []error) {
 	details := TestRunDefinitionDetails{
 		trd.Url,
 		trd.RestMethod,

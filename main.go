@@ -17,5 +17,12 @@ func main() {
 		return
 	}
 
-	run_test_definition(testDefinition)
+	results, errors := RunTestDefinition(testDefinition)
+	if len(errors) > 0 {
+		for _, testErrors := range errors {
+			log.Println(testErrors)
+		}
+	}
+
+	ResultsPrinter(&results)
 }
