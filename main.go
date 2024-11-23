@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"log"
+	"os"
 )
 
 func main() {
@@ -24,5 +25,15 @@ func main() {
 		}
 	}
 
-	ResultsPrinter(&results)
+	report, reportError := ResultsPrinter(&results)
+	if reportError != nil {
+		log.Println(reportError)
+		return
+	}
+
+	fileContent := []byte(report)
+	err = os.WriteFile("somefile.html", fileContent, 0644)
+	if err != nil {
+		log.Fatal(err)
+	}
 }
