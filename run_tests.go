@@ -59,11 +59,11 @@ func run_test(test *Test, details TestRunDefinitionDetails) (*TestResult, error)
 	}
 
 	result := &TestResult{
+		test.Name,
 		url,
 		details.RestMethod,
 		details.RequestHeaders,
-		"",
-		test.ExpectedResponseCode,
+		test.RequestBody,
 		resp.StatusCode,
 		resp.Header,
 		string(responseBodyBytes),

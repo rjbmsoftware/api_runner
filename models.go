@@ -10,10 +10,9 @@ const (
 )
 
 type Test struct {
-	PathParameters       map[string]string `json:"pathParameters"`
-	ExpectedResponseCode int               `json:"expectedResponseCode"`
-	Name                 string            `json:"name"`
-	RequestBody          string
+	PathParameters map[string]string `json:"pathParameters"`
+	Name           string            `json:"name"`
+	RequestBody    string
 }
 
 type TestRunDefinition struct {
@@ -30,12 +29,12 @@ type TestRunDefinitionDetails struct {
 }
 
 type TestResult struct {
-	Url                  string
-	RestMethod           RestMethod
-	RequestHeaders       map[string]string
-	RequestBody          string
-	ResponseCodeExpected int
-	ResponseCodeActual   int
-	ResponseHeaders      map[string][]string
-	ResponseBody         string
+	Name               string
+	Url                string
+	RestMethod         RestMethod
+	RequestHeaders     map[string]string
+	RequestBody        string
+	ResponseCodeActual int
+	ResponseHeaders    map[string][]string
+	ResponseBody       string
 }

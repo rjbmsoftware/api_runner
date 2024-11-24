@@ -3,7 +3,7 @@
     <h1>Test Report</h1>    
     <div>
         {{range $index, $test := .}}
-            <h2>Test {{$index}}</h2>
+            <h2>Test {{$index}}: {{$test.Name}}</h2>
             <h3>Request</h3>
             <ul>
                 <li>{{$test.RestMethod}} {{$test.Url}}</li>
@@ -31,4 +31,3 @@
         {{end}}
     </div>
 </body>
-</html>

@@ -1,17 +1,21 @@
 package main
 
 import (
+	_ "embed"
 	"html/template"
 	"os"
 )
 
+//go:embed "report.html"
+var reportTemplateText string
+
 func ResultsPrinter(results *[]TestResult) error {
-	reportTemplate, err := template.ParseFiles("report.html")
+	reportFile, err := os.Create("./test_report_test.html")
 	if err != nil {
 		return err
 	}
 
-	reportFile, err := os.Create("./test_report_test.html")
+	reportTemplate, err := template.New("report").Parse(reportTemplateText)
 	if err != nil {
 		return err
 	}

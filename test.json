@@ -9,15 +9,13 @@
             "name": "test 1",
             "pathParameters": {
                 "{test}": "first"
-            },
-            "expectedResponseCode": 200
+            }
         },
         {
             "name": "test 2",
             "pathParameters": {
                 "{test}": ""
-            },
-            "expectedResponseCode": 200
+            }
         }
     ]
 }

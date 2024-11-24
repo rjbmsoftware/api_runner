@@ -6,8 +6,7 @@ func TestRunTest(t *testing.T) {
 	url := "http://example.com"
 	pathParameters := make(map[string]string)
 	test := Test{
-		PathParameters:       pathParameters,
-		ExpectedResponseCode: 200,
+		PathParameters: pathParameters,
 	}
 	headers := make(map[string]string)
 	details := TestRunDefinitionDetails{
