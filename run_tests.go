@@ -61,9 +61,12 @@ func run_test(test *Test, details TestRunDefinitionDetails) (*TestResult, error)
 	}
 
 	var responseBodyString string
-	if resp.Header.Get("Content-Type") == "application/json" {
+	if strings.Contains(resp.Header.Get("Content-Type"), "application/json") {
 		var out bytes.Buffer
-		json.Indent(&out, responseBodyBytes, "", "\t")
+		err = json.Indent(&out, responseBodyBytes, "", "\t")
+		if err != nil {
+			return nil, err
+		}
 		responseBodyString = out.String()
 	} else {
 		responseBodyString = string(responseBodyBytes)
