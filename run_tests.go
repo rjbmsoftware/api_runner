@@ -1,6 +1,8 @@
 package main
 
 import (
+	"bytes"
+	"encoding/json"
 	"io"
 	"net/http"
 	"strings"
@@ -58,6 +60,15 @@ func run_test(test *Test, details TestRunDefinitionDetails) (*TestResult, error)
 		return nil, err
 	}
 
+	var responseBodyString string
+	if resp.Header.Get("Content-Type") == "application/json" {
+		var out bytes.Buffer
+		json.Indent(&out, responseBodyBytes, "", "\t")
+		responseBodyString = out.String()
+	} else {
+		responseBodyString = string(responseBodyBytes)
+	}
+
 	result := &TestResult{
 		test.Name,
 		url,
@@ -66,7 +77,7 @@ func run_test(test *Test, details TestRunDefinitionDetails) (*TestResult, error)
 		test.RequestBody,
 		resp.StatusCode,
 		resp.Header,
-		string(responseBodyBytes),
+		responseBodyString,
 	}
 
 	return result, nil

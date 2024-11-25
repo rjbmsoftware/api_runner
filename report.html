@@ -1,4 +1,21 @@
 <!DOCTYPE html>
+<head>
+    <title>Test Report</title>
+    <style>
+        body {
+            max-width: 1200px;
+            margin: auto;
+            background-color: black;
+            color: red;
+            overflow-wrap: break-word;
+        }
+
+        pre {
+            background-color: #161624;
+            padding: 1em;
+        }
+    </style>
+</head>
 <body>
     <h1>Test Report</h1>    
     <div>
@@ -14,7 +31,7 @@
                     </ul>
                     {{end}}
                 </li>
-                <li>Body <pre>{{$test.RequestBody}}</pre></li>
+                <li>Body {{if $test.RequestBody}}<pre>{{$test.RequestBody}}</pre></li>{{end}}
             </ul>
             <h3>Response</h3>
             <ul>

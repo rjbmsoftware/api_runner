@@ -10,7 +10,7 @@ import (
 var reportTemplateText string
 
 func ResultsPrinter(results *[]TestResult) error {
-	reportFile, err := os.Create("./test_report_test.html")
+	reportFile, err := os.Create("./test_report.html")
 	if err != nil {
 		return err
 	}
