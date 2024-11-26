@@ -41,10 +41,21 @@ func run_test(test *Test, details TestRunDefinitionDetails) (*TestResult, error)
 		url = strings.Replace(url, key, value, -1)
 	}
 
-	req, err := http.NewRequest(string(details.RestMethod), url, nil)
+	var requestBody io.Reader
+	if test.RequestBody != nil {
+		someJson, err := json.MarshalIndent(test.RequestBody, "", "\t")
+		if err != nil {
+			return nil, err
+		}
+
+		requestBody = bytes.NewReader(someJson)
+	}
+
+	req, err := http.NewRequest(string(details.RestMethod), url, requestBody)
 	if err != nil {
 		return nil, err
 	}
+	requestBodyString :=  
 
 	for header, value := range details.RequestHeaders {
 		req.Header.Add(header, value)
@@ -77,7 +88,7 @@ func run_test(test *Test, details TestRunDefinitionDetails) (*TestResult, error)
 		url,
 		details.RestMethod,
 		details.RequestHeaders,
-		test.RequestBody,
+			
 		resp.StatusCode,
 		resp.Header,
 		responseBodyString,
