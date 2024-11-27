@@ -12,7 +12,7 @@ const (
 type Test struct {
 	PathParameters map[string]string `json:"pathParameters"`
 	Name           string            `json:"name"`
-	RequestBody    any               `json:"requestBody:"`
+	RequestBody    any               `json:"requestBody"`
 }
 
 type TestRunDefinition struct {
