@@ -10,7 +10,7 @@
             "pathParameters": {
                 "{test}": "first"
             },
-            "requestBody": {"some":"test"} 
+            "requestBody": {"key":"value"} 
         },
         {
             "name": "test 2",
