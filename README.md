@@ -6,13 +6,13 @@ When testing web APIs at work I either have to duplicate a request in bruno or r
 
 ### Project
 
-- [ ] run tests to speed up testing
-- [ ] small portable executable so I don't need set versions of dependencies like python
-- [ ] tests can be defined in a human readable format, JSON
-- [ ] user can define where the test file is and what it is called
-- [ ] produces a test report 
-- [ ] tests can replace part of default such as a USI
+- [x] run tests to speed up testing
+- [x] small portable executable so I don't need set versions of dependencies like python
+- [x] tests can be defined in a human readable format, JSON
+- [x] user can define where the test file is and what it is called
+- [x] produces a test report 
+- [x] tests can replace part of default such as a URI
 
 ### Personal
-- [ ] learn some golang
-- [ ] understand if golang is suitable for other projects
+- [x] learn some golang
+- [x] understand if golang is suitable for other projects
