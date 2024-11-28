@@ -33,6 +33,18 @@ func RunTestDefinition(trd *TestRunDefinition) ([]TestResult, []error) {
 	return results, errors
 }
 
+func requestBody(body any) (string, io.Reader, error) {
+	requestBody, err := json.MarshalIndent(body, "", "\t")
+	if err != nil {
+		return "", nil, err
+	}
+
+	requestBodyString := string(requestBody)
+	requestBodyReader := bytes.NewReader(requestBody)
+
+	return requestBodyString, requestBodyReader, nil
+}
+
 func run_test(test *Test, details TestRunDefinitionDetails) (*TestResult, error) {
 	client := &http.Client{}
 	url := details.Url
@@ -41,16 +53,14 @@ func run_test(test *Test, details TestRunDefinitionDetails) (*TestResult, error)
 		url = strings.Replace(url, key, value, -1)
 	}
 
+	var err error
 	var requestBodyString string
 	var requestBodyReader io.Reader
 	if test.RequestBody != nil {
-		requestBody, err := json.MarshalIndent(test.RequestBody, "", "\t")
+		requestBodyString, requestBodyReader, err = requestBody(test.RequestBody)
 		if err != nil {
 			return nil, err
 		}
-
-		requestBodyString = string(requestBody)
-		requestBodyReader = bytes.NewReader(requestBody)
 	}
 
 	req, err := http.NewRequest(string(details.RestMethod), url, requestBodyReader)
